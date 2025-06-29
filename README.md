@@ -1,2 +1,5 @@
 # demo2
-Demo for python start 2 class remake 
+This project is called PING PONG
+
+The projects is a attempt of recreating the 1972 game called "Pong" through python.
+
