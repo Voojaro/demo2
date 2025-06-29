@@ -22,10 +22,11 @@ rocket2 = Player(player_image='rocket.png',
                  player_x=525, player_y=200,
                  player_speed=4, width=50, height=150)
 
+ball_spd = 1
 
 ball = Player(player_image='ball.png', 
                  player_x=200, player_y=200,
-                 player_speed=1, width=50, height=50)
+                 player_speed=ball_spd, width=50, height=50)
 
 
 font.init()
@@ -61,35 +62,31 @@ while run :
              
         if sprite.collide_rect(rocket1, ball) or sprite.collide_rect(rocket2, ball):
             ball_speed_x *= -1
-            ball_speed_x += 1
-
-            
-
+            ball_spd += 5
 
         # home works
         ## losing condition
         if ball.rect.x >600:
             finish = False
             window.blit(lose2,(200,200))
-        if ball.rect.x < 0:  
+        if ball.rect.x < 0-50:  
             finish = False
             window.blit(lose1,(200,200))
-        
-        ## reset game play
 
+        ## reset game play
+        key_pressed = key.get_pressed()
+        if key_pressed[K_r] and finish == False:
+            ball.player_x = 200
+            ball.player_y = 200
+            rocket1.player_x = 20     
+            rocket1.player_y = 200  
+            rocket2.player_x = 525
+            rocket2.player_y = 200   
+            finish = True 
 
     for e in event.get():
         if e.type == QUIT:
             run = False
-        if e.type == KEYUP:
-            if e.key == K_SPACE and finish:
-                ball.player_x = 200
-                ball.player_y = 200
-                rocket1.player_x = 20     
-                rocket1.player_y = 200  
-                rocket2.player_x = 525
-                rocket2.player_y = 200   
-                finish = False 
 
     display.update()
     clock.tick(60)
